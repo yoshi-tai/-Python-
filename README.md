@@ -1,30 +1,34 @@
-# プロジェクトのビルドとデプロイ (XHTML + Servlet)
+# vscode-
 
-このリポジトリは `WebContent` を Web アプリのルート、`src/main/java` を Java ソースとして使う構成です。
+このリポジトリには、Windows上のJava／Webアプリ開発用プロジェクトが含まれています。
 
-前提:
-- Java (11 以上) がインストールされていること
-- Maven がインストールされていること（`mvn -v` で確認）
-- Tomcat 10.x など Jakarta Servlet API (jakarta.*) を使うコンテナを想定
+## 含まれる主な項目
+- `WebContent/`：Webアプリの公開フォルダ
+- `src/main/java/`：Javaソース
+- `APIDev00/`, `BatchDev00/`：Spring Bootプロジェクト
+- `pom.xml`：ルートプロジェクトのMaven設定
 
-簡単な手順 (PowerShell):
-
-1. ビルド
+## 実行方法例
+### 1. ルートプロジェクトのビルド
 ```powershell
 cd C:\vscode作成
 mvn -e -DskipTests package
 ```
 
-2. 生成された WAR を Tomcat に配置
- - `target/vscode-app-1.0-SNAPSHOT.war` を Tomcat の `webapps` にコピーして Tomcat を起動/再起動
+### 2. 各Spring Bootプロジェクトの実行
+```powershell
+cd C:\vscode作成\APIDev00
+mvn spring-boot:run
+```
 
-3. ブラウザで確認
- - `http://localhost:8080/<context>/sample.xhtml`（`<context>` は WAR 名または展開先のコンテキスト）
+```powershell
+cd C:\vscode作成\BatchDev00\KKS06BJ01
+java -jar target/demo-0.0.1-SNAPSHOT.jar
+```
 
-注意:
-- Tomcat 9 以前を使っている場合は `javax.servlet.*` ベースの環境が必要です。現状は `jakarta.servlet` を利用しています。
-- IDE（Eclipse, IntelliJ）を使うとデプロイが簡単です。Eclipse ならプロジェクトを Dynamic Web Project にして Tomcat に Run してください。
+## 注意
+- `target/` と `build/` はGit管理対象外にしています。
+- EclipseやVS Codeでプロジェクトを開く際は、Maven設定を読み込んでください。
 
-もし手元で動かなければ、エラーメッセージか使っている Tomcat バージョンを教えてください。
-# My First Repo
-はじめてのgithubアップロードします！
+## リモート統合
+このREADMEはリモートの既存内容とマージされています。
